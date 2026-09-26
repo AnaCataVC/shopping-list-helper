@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">To Buy</string>
+
+    <string name="tab_pending">Pending</string>
+    <string name="tab_shop">Going shopping</string>
+    <string name="tab_categories">Categories</string>
+
+    <string name="menu_more">More options</string>
+    <string name="menu_export">Export JSON backup</string>
+    <string name="menu_delete_bought">Delete bought items</string>
+    <string name="menu_theme">Theme</string>
+    <string name="export_ok">Backup exported</string>
+    <string name="export_failed">Could not export: %1$s</string>
+    <string name="export_file_name">to-buy-%1$s.json</string>
+
+    <string name="theme_system">Same as system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+
+    <string name="urgency_high">High</string>
+    <string name="urgency_medium">Medium</string>
+    <string name="urgency_low">Low</string>
+
+    <string name="every_n_days">every %1$d days</string>
+    <string name="comes_back_on">back on %1$s</string>
+
+    <string name="pending_empty">Nothing pending. Add something with +</string>
+    <string name="add_item">Add item</string>
+
+    <string name="item_new">New item</string>
+    <string name="item_edit">Edit item</string>
+    <string name="item_name">What to buy</string>
+    <string name="item_quantity">Quantity (optional)</string>
+    <string name="item_category">Category</string>
+    <string name="item_urgency">Urgency</string>
+    <string name="item_recurrence">Repeats every N days (optional)</string>
+    <string name="item_note">Note (optional)</string>
+
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
+    <string name="shop_question">Where are you shopping?</string>
+    <string name="shop_empty">Nothing pending in this category 🎉</string>
+    <string name="shop_mark_all">Mark whole list as bought</string>
+
+    <string name="add_category">Add category</string>
+    <string name="delete_category_cd">Delete %1$s</string>
+    <string name="category_new">New category</string>
+    <string name="category_edit">Edit category</string>
+    <string name="category_emoji">Emoji</string>
+    <string name="category_name">Name</string>
+    <string name="category_duplicate">A category with that name already exists</string>
+    <string name="category_delete_title">Delete %1$s</string>
+    <string name="category_delete_empty">This category is empty. Delete it?</string>
+    <plurals name="category_delete_no_target">
+        <item quantity="one">It has %d item and there is no other category to move it to. Create another category first.</item>
+        <item quantity="other">It has %d items and there is no other category to move them to. Create another category first.</item>
+    </plurals>
+    <plurals name="category_delete_move">
+        <item quantity="one">It has %d item. Before deleting it, choose which category to move it to:</item>
+        <item quantity="other">It has %d items. Before deleting it, choose which category to move them to:</item>
+    </plurals>
+    <string name="category_move_and_delete">Move and delete</string>
+
+    <string name="seed_supermarket">Supermarket</string>
+    <string name="seed_clothes">Clothes</string>
+    <string name="seed_medicine">Medicine</string>
+    <string name="seed_toiletries">Toiletries</string>
+    <string name="seed_home">Home</string>
+    <string name="seed_other">Other</string>
+</resources>

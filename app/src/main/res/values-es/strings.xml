@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">Por Comprar</string>
+
+    <string name="tab_pending">Pendientes</string>
+    <string name="tab_shop">Voy a comprar</string>
+    <string name="tab_categories">Categorías</string>
+
+    <string name="menu_more">Más opciones</string>
+    <string name="menu_export">Exportar respaldo JSON</string>
+    <string name="menu_delete_bought">Borrar ítems ya comprados</string>
+    <string name="menu_theme">Tema</string>
+    <string name="export_ok">Respaldo exportado</string>
+    <string name="export_failed">No se pudo exportar: %1$s</string>
+    <string name="export_file_name">por-comprar-%1$s.json</string>
+
+    <string name="theme_system">Igual que el sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+
+    <string name="urgency_high">Alta</string>
+    <string name="urgency_medium">Media</string>
+    <string name="urgency_low">Baja</string>
+
+    <string name="every_n_days">cada %1$d días</string>
+    <string name="comes_back_on">vuelve el %1$s</string>
+
+    <string name="pending_empty">No hay pendientes. Agrega uno con +</string>
+    <string name="add_item">Agregar pendiente</string>
+
+    <string name="item_new">Nuevo pendiente</string>
+    <string name="item_edit">Editar pendiente</string>
+    <string name="item_name">Qué comprar</string>
+    <string name="item_quantity">Cantidad (opcional)</string>
+    <string name="item_category">Categoría</string>
+    <string name="item_urgency">Urgencia</string>
+    <string name="item_recurrence">Se repite cada N días (opcional)</string>
+    <string name="item_note">Nota (opcional)</string>
+
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Eliminar</string>
+
+    <string name="shop_question">¿Dónde vas a comprar?</string>
+    <string name="shop_empty">Nada pendiente en esta categoría 🎉</string>
+    <string name="shop_mark_all">Marcar lista completa como comprada</string>
+
+    <string name="add_category">Agregar categoría</string>
+    <string name="delete_category_cd">Eliminar %1$s</string>
+    <string name="category_new">Nueva categoría</string>
+    <string name="category_edit">Editar categoría</string>
+    <string name="category_emoji">Emoji</string>
+    <string name="category_name">Nombre</string>
+    <string name="category_duplicate">Ya existe una categoría con ese nombre</string>
+    <string name="category_delete_title">Eliminar %1$s</string>
+    <string name="category_delete_empty">La categoría está vacía. ¿La eliminamos?</string>
+    <plurals name="category_delete_no_target">
+        <item quantity="one">Tiene %d ítem y no hay otra categoría a donde moverlo. Crea otra categoría primero.</item>
+        <item quantity="other">Tiene %d ítems y no hay otra categoría a donde moverlos. Crea otra categoría primero.</item>
+    </plurals>
+    <plurals name="category_delete_move">
+        <item quantity="one">Tiene %d ítem asociado. Antes de eliminarla, elige a qué categoría moverlo:</item>
+        <item quantity="other">Tiene %d ítems asociados. Antes de eliminarla, elige a qué categoría moverlos:</item>
+    </plurals>
+    <string name="category_move_and_delete">Mover y eliminar</string>
+
+    <string name="seed_supermarket">Supermercado</string>
+    <string name="seed_clothes">Ropa</string>
+    <string name="seed_medicine">Medicamentos</string>
+    <string name="seed_toiletries">Aseo personal</string>
+    <string name="seed_home">Hogar</string>
+    <string name="seed_other">Otros</string>
+</resources>
