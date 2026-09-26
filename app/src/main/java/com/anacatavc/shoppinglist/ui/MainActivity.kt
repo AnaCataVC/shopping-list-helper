@@ -18,8 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.AlertDialog
@@ -62,7 +62,7 @@ import java.time.LocalDate
 private enum class Tab(@StringRes val label: Int, val icon: ImageVector) {
     PENDING(R.string.tab_pending, Icons.Default.Home),
     SHOP(R.string.tab_shop, Icons.Default.ShoppingCart),
-    CATEGORIES(R.string.tab_categories, Icons.Default.List),
+    CATEGORIES(R.string.tab_categories, Icons.AutoMirrored.Filled.List),
 }
 
 class MainActivity : ComponentActivity() {
