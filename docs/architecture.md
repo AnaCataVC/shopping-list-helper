@@ -24,6 +24,8 @@ app/src/main/java/com/anacatavc/shoppinglist/
 The DAO exposes `Flow`s for categories and items. `MainActivity` collects them once and passes the
 lists down to the screens; screens write through the DAO in a coroutine and the flows re-emit.
 Data volume is small (a personal shopping list), so filtering and grouping are done in memory.
+Form dialogs (`ItemDialog`, `CategoryDialog`) use `rememberSaveable` to ensure user input survives
+device rotation and configuration changes without losing in-flight edits.
 
 ## Theme
 
