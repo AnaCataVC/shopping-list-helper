@@ -6,6 +6,8 @@
 [![Material Design 3](https://img.shields.io/badge/Material%20Design-3-7B5FD9?style=flat)](https://m3.material.io/)
 [![Room](https://img.shields.io/badge/Room-2.6.1-4285F4?style=flat)](https://developer.android.com/training/data-storage/room)
 
+Product page / Página del producto: [shopping-list-helper.ana-catalina.com](https://shopping-list-helper.ana-catalina.com)
+
 [English](#english) • [Español](#español)
 
 ---
