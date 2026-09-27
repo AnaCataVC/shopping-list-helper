@@ -96,8 +96,8 @@ Run on a physical phone after installing a debug build (`.\gradlew installDebug`
 - [ ] Choice survives closing the app from recents.
 
 **Language**
-- [ ] Phone in Spanish → app name "Por Comprar", all text in Spanish.
-- [ ] Phone in English → app name "To Buy", all text in English.
+- [ ] Phone in Spanish → app name "Ayudante de Compras", all text in Spanish.
+- [ ] Phone in English → app name "Shopping List Helper", all text in English.
 - [ ] Android 13+: Settings → Apps → app → Language lists English and Spanish, and switching
       changes the app without changing the phone.
 - [ ] Plurals read correctly with 1 and with several items in the delete-category dialog.

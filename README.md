@@ -1,4 +1,4 @@
-# Por Comprar — Shopping List Helper
+# Shopping List Helper (Ayudante de Compras)
 
 [![Platform](https://img.shields.io/badge/Platform-Android%20(API%2026%2B)-3DDC84?style=flat&logo=android&logoColor=white)](https://developer.android.com/)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.0-7F52FF?style=flat&logo=kotlin&logoColor=white)](https://kotlinlang.org/)

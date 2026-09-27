@@ -1,7 +1,7 @@
 # AGENTS.md — Development & Architecture Directives
 
 ## 1. Project Overview & Architecture
-`shopping-list-helper` (Por Comprar) is a lightweight, offline-first native Android application written in Kotlin.
+`shopping-list-helper` (Ayudante de Compras / Shopping List Helper) is a lightweight, offline-first native Android application written in Kotlin.
 It uses Jetpack Compose (Material 3) for the entire UI, Room 2.6.1 for local persistence, and no external DI or navigation framework.
 
 - **Stack:**
