@@ -42,9 +42,6 @@ interface ShoppingDao {
     @Query("DELETE FROM items WHERE done = 1")
     suspend fun deleteBought()
 
-    @Query("SELECT COUNT(*) FROM items WHERE categoryId = :categoryId")
-    suspend fun countItemsIn(categoryId: Long): Int
-
     @Query("UPDATE items SET categoryId = :toId WHERE categoryId = :fromId")
     suspend fun moveItems(fromId: Long, toId: Long)
 

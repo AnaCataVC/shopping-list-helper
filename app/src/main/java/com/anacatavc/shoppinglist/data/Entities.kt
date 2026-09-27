@@ -12,8 +12,11 @@ data class Category(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     val emoji: String,
-)
+) {
+    val label: String get() = "$emoji $name"
+}
 
+/** Persisted by constant name: renaming a constant requires a data migration. */
 enum class Urgency(@StringRes val label: Int) {
     HIGH(R.string.urgency_high),
     MEDIUM(R.string.urgency_medium),
@@ -53,6 +56,16 @@ data class Item(
     fun bought(now: Long): Item =
         if (recurrenceDays == null) copy(done = true, lastBoughtAt = now)
         else copy(lastBoughtAt = now, nextDueAt = now + recurrenceDays * DAY_MS)
+
+    /**
+     * Sets the recurrence and keeps [nextDueAt] consistent with it: turning recurrence off makes the
+     * item due right away, and changing the period reschedules it from the last purchase.
+     */
+    fun withRecurrence(days: Int?): Item = when {
+        days == null -> copy(recurrenceDays = null, nextDueAt = null)
+        days == recurrenceDays || lastBoughtAt == null -> copy(recurrenceDays = days)
+        else -> copy(recurrenceDays = days, nextDueAt = lastBoughtAt + days * DAY_MS)
+    }
 
     companion object {
         const val DAY_MS = 24L * 60 * 60 * 1000

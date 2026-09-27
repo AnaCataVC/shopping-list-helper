@@ -69,6 +69,33 @@ class ItemTest {
     }
 
     @Test
+    fun `turning recurrence off makes a scheduled item due right away`() {
+        val edited = base.copy(recurrenceDays = 7).bought(now).withRecurrence(null)
+        assertNull(edited.recurrenceDays)
+        assertNull(edited.nextDueAt)
+        assertTrue(edited.isDue(now))
+    }
+
+    @Test
+    fun `changing the period reschedules from the last purchase`() {
+        val edited = base.copy(recurrenceDays = 30).bought(now).withRecurrence(7)
+        assertEquals(now + 7 * Item.DAY_MS, edited.nextDueAt)
+    }
+
+    @Test
+    fun `keeping the same period keeps the schedule`() {
+        val bought = base.copy(recurrenceDays = 7).bought(now)
+        assertEquals(bought, bought.withRecurrence(7))
+    }
+
+    @Test
+    fun `adding recurrence to a never-bought item keeps it due`() {
+        val edited = base.withRecurrence(7)
+        assertEquals(7, edited.recurrenceDays)
+        assertTrue(edited.isDue(now))
+    }
+
+    @Test
     fun `urgency order is high, medium, low`() {
         assertEquals(listOf(Urgency.HIGH, Urgency.MEDIUM, Urgency.LOW), Urgency.entries.sorted())
     }

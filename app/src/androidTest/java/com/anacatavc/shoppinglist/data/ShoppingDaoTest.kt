@@ -99,14 +99,6 @@ class ShoppingDaoTest {
     }
 
     @Test
-    fun countItemsInIncludesBoughtItems() = runTest {
-        val clothes = category("Ropa")
-        dao.upsertItem(Item(name = "Calcetines", categoryId = clothes.id))
-        dao.upsertItem(Item(name = "Polera", categoryId = clothes.id, done = true))
-        assertEquals(2, dao.countItemsIn(clothes.id))
-    }
-
-    @Test
     fun moveItemsAndDeleteCategoryMovesEverythingThenDeletes() = runTest {
         val clothes = category("Ropa")
         val other = category("Otros")
