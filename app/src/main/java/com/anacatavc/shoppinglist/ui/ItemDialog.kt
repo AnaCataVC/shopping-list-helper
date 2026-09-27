@@ -16,7 +16,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -55,15 +54,7 @@ fun ItemDialog(
                 OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.item_name)) }, singleLine = true)
                 OutlinedTextField(quantity, { quantity = it }, label = { Text(stringResource(R.string.item_quantity)) }, singleLine = true)
                 Text(stringResource(R.string.item_category), style = MaterialTheme.typography.labelLarge)
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    categories.forEach {
-                        FilterChip(
-                            selected = categoryId == it.id,
-                            onClick = { categoryId = it.id },
-                            label = { Text("${it.emoji} ${it.name}") },
-                        )
-                    }
-                }
+                CategoryChips(categories, categoryId, onSelect = { categoryId = it })
                 Text(stringResource(R.string.item_urgency), style = MaterialTheme.typography.labelLarge)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     Urgency.entries.forEach {
@@ -92,10 +83,7 @@ fun ItemDialog(
                             note = note.trim(),
                             categoryId = categoryId,
                             urgency = urgency,
-                            recurrenceDays = recurrenceDays,
-                            // Turning recurrence off drops the pending schedule so the item is due right away.
-                            nextDueAt = if (recurrenceDays == null) null else initial.nextDueAt,
-                        ),
+                        ).withRecurrence(recurrenceDays),
                     )
                 },
             ) { Text(stringResource(R.string.save)) }

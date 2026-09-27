@@ -2,6 +2,7 @@ package com.anacatavc.shoppinglist.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -10,7 +11,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +28,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.RadioButton
@@ -70,7 +71,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             var themeMode by remember { mutableStateOf(loadThemeMode(this)) }
-            val dark = themeMode == ThemeMode.DARK || (themeMode == ThemeMode.SYSTEM && isSystemInDarkTheme())
+            val dark = themeMode.isDark()
             // System bar icons must follow the in-app theme, which can differ from the system one.
             DisposableEffect(dark) {
                 val style = if (dark) SystemBarStyle.dark(Color.TRANSPARENT)
@@ -91,11 +92,13 @@ private fun App(themeMode: ThemeMode, onThemeChange: (ThemeMode) -> Unit) {
     val context = LocalContext.current
     val dao = remember { AppDatabase.get(context).dao() }
     val scope = rememberCoroutineScope()
-    val categories by dao.categories().collectAsState(initial = emptyList())
-    val items by dao.items().collectAsState(initial = emptyList())
+    // null until Room's first emission, so screens (and dialogs restored after rotation) never see a fake empty list.
+    val categories by dao.categories().collectAsState(initial = null)
+    val items by dao.items().collectAsState(initial = null)
     var tab by rememberSaveable { mutableStateOf(Tab.PENDING) }
-    var menuOpen by remember { mutableStateOf(false) }
-    var themeDialogOpen by remember { mutableStateOf(false) }
+    var menuOpen by rememberSaveable { mutableStateOf(false) }
+    var themeDialogOpen by rememberSaveable { mutableStateOf(false) }
+    var confirmDeleteBought by rememberSaveable { mutableStateOf(false) }
 
     val exportLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument("application/json"),
@@ -106,13 +109,12 @@ private fun App(themeMode: ThemeMode, onThemeChange: (ThemeMode) -> Unit) {
                 withContext(Dispatchers.IO) {
                     val json = backupJson(dao.allCategories(), dao.allItems(), System.currentTimeMillis())
                     val outputStream = context.contentResolver.openOutputStream(uri)
-                        ?: throw java.io.IOException("Unable to open output stream for backup destination")
+                        ?: throw java.io.IOException("No output stream for $uri")
                     outputStream.use { it.write(json.toByteArray()) }
                 }
             }
-            val message = if (result.isSuccess) context.getString(R.string.export_ok)
-            else context.getString(R.string.export_failed, result.exceptionOrNull()?.message.orEmpty())
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            result.exceptionOrNull()?.let { Log.w("ShoppingList", "Backup export failed", it) }
+            Toast.makeText(context, if (result.isSuccess) R.string.export_ok else R.string.export_failed, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -143,7 +145,7 @@ private fun App(themeMode: ThemeMode, onThemeChange: (ThemeMode) -> Unit) {
                             text = { Text(stringResource(R.string.menu_delete_bought)) },
                             onClick = {
                                 menuOpen = false
-                                scope.launch { dao.deleteBought() }
+                                confirmDeleteBought = true
                             },
                         )
                     }
@@ -164,11 +166,28 @@ private fun App(themeMode: ThemeMode, onThemeChange: (ThemeMode) -> Unit) {
         },
     ) { padding ->
         val modifier = Modifier.padding(padding)
+        val loadedCategories = categories ?: return@Scaffold
+        val loadedItems = items ?: return@Scaffold
         when (tab) {
-            Tab.PENDING -> PendingScreen(items, categories, dao, modifier)
-            Tab.SHOP -> ShopScreen(items, categories, dao, modifier)
-            Tab.CATEGORIES -> CategoriesScreen(categories, dao, modifier)
+            Tab.PENDING -> PendingScreen(loadedItems, loadedCategories, dao, modifier)
+            Tab.SHOP -> ShopScreen(loadedItems, loadedCategories, dao, modifier)
+            Tab.CATEGORIES -> CategoriesScreen(loadedCategories, loadedItems, dao, modifier)
         }
+    }
+
+    if (confirmDeleteBought) {
+        AlertDialog(
+            onDismissRequest = { confirmDeleteBought = false },
+            title = { Text(stringResource(R.string.menu_delete_bought)) },
+            text = { Text(stringResource(R.string.delete_bought_confirm)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    confirmDeleteBought = false
+                    scope.launchWrite(context) { dao.deleteBought() }
+                }) { Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error) }
+            },
+            dismissButton = { TextButton(onClick = { confirmDeleteBought = false }) { Text(stringResource(R.string.cancel)) } },
+        )
     }
 
     if (themeDialogOpen) {

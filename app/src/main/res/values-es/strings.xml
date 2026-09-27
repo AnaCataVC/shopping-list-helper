@@ -10,7 +10,7 @@
     <string name="menu_delete_bought">Borrar ítems ya comprados</string>
     <string name="menu_theme">Tema</string>
     <string name="export_ok">Respaldo exportado</string>
-    <string name="export_failed">No se pudo exportar: %1$s</string>
+    <string name="export_failed">No se pudo exportar el respaldo</string>
     <string name="export_file_name">por-comprar-%1$s.json</string>
 
     <string name="theme_system">Igual que el sistema</string>
@@ -69,4 +69,7 @@
     <string name="seed_toiletries">Aseo personal</string>
     <string name="seed_home">Hogar</string>
     <string name="seed_other">Otros</string>
+    <string name="delete_bought_confirm">Los ítems ya comprados que no se repiten se borrarán para siempre.</string>
+    <string name="add_item_needs_category">Primero crea una categoría</string>
+    <string name="save_failed">No se pudo guardar el cambio</string>
 </resources>

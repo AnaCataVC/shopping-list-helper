@@ -20,8 +20,9 @@ import com.anacatavc.shoppinglist.data.Urgency
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
-private val dayFormat = DateTimeFormatter.ofPattern("dd/MM")
+private val dayFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
 
 fun Urgency.color(): Color = when (this) {
     Urgency.HIGH -> Color(0xFFD9425B)
