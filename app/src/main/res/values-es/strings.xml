@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Por Comprar</string>
+    <string name="app_name">Ayudante de Compras</string>
 
     <string name="tab_pending">Pendientes</string>
     <string name="tab_shop">Voy a comprar</string>

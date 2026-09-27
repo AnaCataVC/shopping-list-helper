@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">To Buy</string>
+    <string name="app_name">Shopping List Helper</string>
 
     <string name="tab_pending">Pending</string>
     <string name="tab_shop">Going shopping</string>
