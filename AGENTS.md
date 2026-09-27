@@ -24,19 +24,20 @@ It uses Jetpack Compose (Material 3) for the entire UI, Room 2.6.1 for local per
 ### 2.1. Offline-First & No Server Dependency
 - All application data resides purely in the local SQLite database (`shopping.db`).
 - Never introduce network calls, cloud synchronization dependencies, or background push notifications.
-- Backup and restore strictly rely on Android's Storage Access Framework (`ACTION_CREATE_DOCUMENT` / `ACTION_OPEN_DOCUMENT`).
+- Backup export strictly relies on Android's Storage Access Framework (`ACTION_CREATE_DOCUMENT`); there is no import yet. Android Auto Backup stays disabled (`allowBackup="false"`) so the database never leaves the device on its own.
 
 ### 2.2. Due Dates & Recurrence Calculation
 - Recurring purchase intervals are evaluated on-demand (`Item.isDue(now)`) when screens render.
 - Do not introduce background `WorkManager` jobs or `AlarmManager` timers just to recalculate due states.
-- When recurrence is toggled off on an item, `nextDueAt` must be set to `null` so the item becomes due immediately.
+- Recurrence changes go through `Item.withRecurrence`: turning it off sets `nextDueAt` to `null` (due immediately), and changing the period reschedules from `lastBoughtAt`.
 
 ### 2.3. Data Integrity & Cascades
 - Foreign key constraint between `Item` and `Category` is configured as `ForeignKey.RESTRICT`.
 - Deleting a category that holds active or completed items requires reassigning its items to another category within a single database transaction (`ShoppingDao.moveItemsAndDeleteCategory`).
 
 ### 2.4. Compose UI State & Rotation
-- All editable dialog states and user input fields must use `rememberSaveable` rather than transient `remember` to prevent loss of user data during device rotation or configuration changes.
+- Dialog visibility, the edited entity (saved by id) and every input field use `rememberSaveable`, never transient `remember`, so rotation keeps the dialog open with the user's input.
+- DAO writes from the UI go through `launchWrite` (`ui/Common.kt`), which reports constraint violations with a toast instead of crashing.
 - Themes (`SYSTEM`, `LIGHT`, `DARK`) are stored in `SharedPreferences` and applied dynamically via `AppTheme`. System bar icon colors must stay synchronized with the active theme style.
 
 ### 2.5. Localization

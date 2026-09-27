@@ -109,7 +109,8 @@ Run on a physical phone after installing a debug build (`.\gradlew installDebug`
 - [ ] Cancelling the picker shows no error.
 
 **Robustness**
-- [ ] Rotate the phone with a dialog open: nothing crashes (unsaved dialog text may reset).
+- [ ] Rotate the phone with each dialog open (item, category, delete category, delete bought,
+      theme): the dialog stays open and keeps what was typed or selected.
 - [ ] Long item and category names wrap without breaking the layout.
 - [ ] Emoji field accepts multi-codepoint emoji (e.g. 🧑‍🍳).
 - [ ] Recurring item: set recurrence to 1 day, buy it, change the phone date forward a day, reopen
