@@ -3,5 +3,4 @@
     <style name="Theme.ShoppingList" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">#F5F1FC</item>
     </style>
-    <color name="ic_launcher_background">#F1EEF6</color>
 </resources>
