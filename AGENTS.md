@@ -63,3 +63,13 @@ $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
 # Instrumented UI & Room tests (requires active emulator / device)
 .\gradlew connectedDebugAndroidTest
 ```
+
+
+---
+
+## 4. Release Automation & Artifact Integrity
+- **Automated CI/CD Release:** Pushing a semantic version tag (`git tag vX.Y.Z && git push origin vX.Y.Z`) triggers `.github/workflows/release.yml`. The workflow runs unit tests, compiles the release APK, computes its cryptographic `.sha256` hash, and publishes the official GitHub Release.
+- **Official Deliverables:**
+  - `shopping-list-helper-vX.Y.Z.apk`
+  - `shopping-list-helper-vX.Y.Z.apk.sha256`
+- **Pre-Release Check:** Verify that `versionCode` and `versionName` in `app/build.gradle.kts` match the target release tag before pushing.
