@@ -10,3 +10,8 @@
 .cxx
 .kotlin/
 releases/
+
+# Android signing keystores
+*.jks
+*.keystore
+keystore.jks
